@@ -11,7 +11,7 @@ export class UserListComponent implements OnInit {
   constructor(private data: APIServiceService) { }
 
   ngOnInit() {
-    this.data.GetUser()
+    
   }
   Delete(id){
     for (var i = 0; i<this.data.UserList.length; i++){
@@ -20,20 +20,4 @@ export class UserListComponent implements OnInit {
       }
     }
   }
-  AddUser () : void {
-    if (this.data.name != "") {
-
-      var obj : object = { "Name" : this.data.name, "deleted" : false, "completed" : false};
-
-      if (this.data.UserList.length != 0) {
-        var lastId = this.data.UserList[this.data.UserList.length - 1]["id"];
-        obj = { "id" : lastId + 1,  "Name" : this.data.name, "deleted" : false, "completed" : false };
-      }
-      else {
-        obj = { "id" : 1,  "Name" : this.data.name, "deleted" : false, "completed" : false };
-      }
-
-    }
-  }
-
 }

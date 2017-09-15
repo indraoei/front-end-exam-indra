@@ -6,18 +6,14 @@ import { Observable } from 'rxjs/Rx';
 export class APIServiceService {
 
   id : number;
-  name : string;
-  email : string;
-  address : string;
-  company : string;
+  name : string = "";
+  email : string = "";
+  address : string = "";
+  company : string = "";
   UserList : object[] = [];
   Completed : boolean = false;
 
-  constructor(private http : Http) { }
-
-  GetUser(){
-    this.UserList = [];
-
+  constructor(private http : Http) { 
     this.http.get('https://jsonplaceholder.typicode.com/users')
     .subscribe(
       result => {
@@ -39,27 +35,15 @@ export class APIServiceService {
     );
   }
 
-  AddUser () : void {
-    if (this.name != "") {
 
-      var obj : object = { "Name" : this.name, "deleted" : false, "completed" : false};
 
-      if (this.UserList.length != 0) {
-        var lastId = this.UserList[this.UserList.length - 1]["id"];
-        obj = { "id" : lastId + 1,  "Name" : this.name, "deleted" : false, "completed" : false };
-      }
-      else {
-        obj = { "id" : 1,  "Name" : this.name, "deleted" : false, "completed" : false };
-      }
 
-      this.UserList.push(obj);
-      this.name = "";
-
-      console.log(this.UserList);
-
-    }
+  AddUser (nama,email,address,company) : void {
+      var id = this.UserList[this.UserList.length-1]["id"]+1;
+      var list = {"id" : id, "name" : this.name, "email" : this.email, "address" : this.address, "company" : this.company };
+      this.UserList.push(list);
   }
-
+  
   GetData() : object[]{
     for (var i = 0; i < this.UserList.length; i++) {
       
@@ -70,7 +54,6 @@ export class APIServiceService {
     } 
     return this.UserList;
   }
-
 
   DeleteUser(id) : void {
     
